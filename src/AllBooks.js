@@ -1,38 +1,44 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Shelf from "./Shelf"
+import Shelf from "./Shelf";
 
-class AllBooks extends Component {
-  render() {
-    return (
-      <div className="list-books">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
-        <div className="list-books-content">
-          <div>
+function getName(str) {
+  switch (str) {
+    case "dd":
+      return "Currently Reading";
+    case "ddd":
+      return "Want to read";
+    case "read":
+      return "Read";
+    default:
+      return null;
+  }
+}
+
+function AllBooks({books}) {
+  console.log("allBooks Component", books);
+  return (
+    <div className="list-books">
+      <div className="list-books-title">
+        <h1>MyReads</h1>
+      </div>
+      <div className="list-books-content">
+        <div>
+          {Object.keys(books).map((shelf) => (
             <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <Shelf/>
+              <h2 className="bookshelf-title">{getName(shelf)}</h2>
+              <Shelf shelfBooks={books} />
             </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <Shelf/>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <Shelf/>
-            </div>
-          </div>
-        </div>
-        <div className="open-search">
-          <Link to="/search">
-            <button>Add a book</button>
-          </Link>
+          ))}
         </div>
       </div>
-    );
-  }
+      <div className="open-search">
+        <Link to="/search">
+          <button>Add a book</button>
+        </Link>
+      </div>
+    </div>
+  );
 }
 
 export default AllBooks;

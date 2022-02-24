@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 class Shelf extends Component {
   render() {
+    console.log("Shelffff", this.props.shelfBooks);
     return (
       <div className="bookshelf-books">
         <ol className="books-grid">
@@ -29,6 +30,8 @@ class Shelf extends Component {
                   </select>
                 </div>
               </div>
+              <div className="book-title">To Kill a Mockingbird</div>
+              <div className="book-authors">Harper Lee</div>
             </div>
           </li>
         </ol>
