@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Shelf from "./Shelf";
 
 
-
 function AllBooks({books}) {
     function getName(str) {
         switch (str) {
