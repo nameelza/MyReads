@@ -6,19 +6,22 @@ import { Link } from "react-router-dom";
 
 class BooksApp extends React.Component {
 
+  state = {
+    books: {}
+  }
+
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      console.log(books);
       let inCategories = {};
-      books.map((book) => {
+      books.forEach((book) => {
         if (book.shelf !== "none") {
           if (!inCategories[book.shelf]) {
             inCategories[book.shelf] = [];
           }
           inCategories[book.shelf].push(book);
-          console.log(inCategories)
         }
       })
+      this.setState({books: inCategories});
     });
   }
 
