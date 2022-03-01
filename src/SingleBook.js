@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as BooksAPI from "./BooksAPI";
 
 class SingleBook extends Component {
   state = {
@@ -6,8 +7,14 @@ class SingleBook extends Component {
   };
 
   handleChange = (event) => {
+    this.updateShelf(event.target.value);
     this.setState({shelf: event.target.value});
     console.log("changed", this.state.shelf)
+    
+  }
+  
+  updateShelf = (newShelf) => {
+    BooksAPI.update(this.props.book, newShelf);
   }
 
   render() {
