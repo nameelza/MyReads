@@ -23,7 +23,6 @@ class BooksApp extends React.Component {
         }
       })
       this.setState({books: inCategories});
-      console.log(this.state.books)
     });
   }
 

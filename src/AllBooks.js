@@ -23,7 +23,9 @@ function AllBooks({books}) {
           {Object.keys(books).map((shelf) => (
             <div className="bookshelf" key={shelf}>
               <h2 className="bookshelf-title">{getName(shelf)}</h2>
-              <Shelf shelfBooks={books[shelf]} />
+              <div className="bookshelf-books">
+                <Shelf shelfBooks={books[shelf]} />
+              </div>
             </div>
           ))}
         </div>
