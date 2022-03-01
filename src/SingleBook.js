@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 
 class SingleBook extends Component {
-    state = {
-        shelf: this.props.book.shelf
-    }
+  state = {
+    shelf: this.props.book.shelf,
+  };
+
+  handleChange = (event) => {
+    this.setState({shelf: event.target.value});
+    console.log("changed", this.state.shelf)
+  }
+
   render() {
+    console.log("books shelf", this.state.shelf)
     return (
-      <li >
+      <li>
         <div className="book">
           <div className="book-top">
             <div
@@ -14,11 +21,13 @@ class SingleBook extends Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})`,
+                backgroundImage: `url(${
+                  this.props.book.imageLinks.smallThumbnail
+                })`,
               }}
             />
             <div className="book-shelf-changer">
-              <select>
+              <select value={this.state.shelf} onChange={(event) => this.handleChange(event)}>
                 <option value="move" disabled>
                   Move to...
                 </option>
@@ -30,7 +39,9 @@ class SingleBook extends Component {
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>
-          <div className="book-authors">{this.props.book.authors.join(", ")}</div>
+          <div className="book-authors">
+            {this.props.book.authors.join(", ")}
+          </div>
         </div>
       </li>
     );
