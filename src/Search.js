@@ -11,20 +11,18 @@ class Search extends Component {
 
   updateValue = (value) => {
     this.setState({ value: value });
-    this.getBooks(value);
+    if (value.length > 0) {
+      this.getBooks(value);
+    }
   };
 
   getBooks = (value) => {
     BooksAPI.search(value.trim()).then((books) => {
-      console.log("BOOKS API", books);
-      if (!books || books.error === 'empty query' ) {
-          this.setState({booksResult: []});
-          console.log("empty query")
+      if (!books || books.error) {
+        this.setState({ booksResult: [] });
       } else {
-        console.log("books query");
         this.setState({ booksResult: books });
       }
-      console.log("length", this.state.booksResult.length)
     });
   };
 
@@ -45,7 +43,7 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results" />
-        { this.state.booksResult.length !== 0 ? (
+        {this.state.booksResult.length !== 0 ? (
           <Shelf shelfBooks={this.state.booksResult} />
         ) : (
           <Shelf shelfBooks={[]} />

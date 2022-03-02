@@ -3,11 +3,14 @@ import * as BooksAPI from "./BooksAPI";
 
 class SingleBook extends Component {
   state = {
-    shelf: "",
+    book: {},
+    shelf: ""
   };
 
   componentDidMount() {
-      this.setState({shelf: this.props.book.shelf})
+      BooksAPI.get(this.props.book.id).then((book) => {
+        this.setState({book: book, shelf: book.shelf});
+      });
   }
 
   handleChange = (event) => {
@@ -18,11 +21,11 @@ class SingleBook extends Component {
   }
   
   updateShelf = (newShelf) => {
-    BooksAPI.update(this.props.book, newShelf);
+    BooksAPI.update(this.state.book, newShelf);
   }
 
   render() {
-    console.log("SingleBookComponent Shelf", this.props.book.shelf)
+    console.log("SingleBookComponentShelf", this.state.shelf)
     return (
       <li>
         <div className="book">
