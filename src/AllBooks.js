@@ -17,7 +17,7 @@ function getName(str) {
 }
 
 class AllBooks extends Component {
-  
+
   state = {
     books: {}
   }
@@ -41,11 +41,11 @@ class AllBooks extends Component {
       <>
         <div className="list-books-content">
           <div>
-            {Object.keys(this.props.books).map((shelf) => (
+            {Object.keys(this.state.books).map((shelf) => (
               <div className="bookshelf" key={shelf}>
                 <h2 className="bookshelf-title">{getName(shelf)}</h2>
                 <div className="bookshelf-books">
-                  <Shelf shelfBooks={this.props.books[shelf]} />
+                  <Shelf shelfBooks={this.state.books[shelf]} />
                 </div>
               </div>
             ))}

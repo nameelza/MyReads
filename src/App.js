@@ -1,30 +1,10 @@
 import React from "react";
-import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import AllBooks from "./AllBooks";
 import Search from "./Search";
 
 class BooksApp extends React.Component {
-
-  state = {
-    books: {}
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      let inCategories = {};
-      books.forEach((book) => {
-        if (book.shelf !== "none") {
-          if (!inCategories[book.shelf]) {
-            inCategories[book.shelf] = [];
-          }
-          inCategories[book.shelf].push(book);
-        }
-      })
-      this.setState({books: inCategories});
-    });
-  }
 
   render() {
     return (
@@ -37,7 +17,7 @@ class BooksApp extends React.Component {
             <Route
               exact
               path="/"
-              element={<AllBooks books={this.state.books}/>}
+              element={<AllBooks/>}
             />
             <Route
               path="/search"

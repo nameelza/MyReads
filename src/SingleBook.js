@@ -20,7 +20,6 @@ class SingleBook extends Component {
   };
 
   render() {
-    // console.log("smallThumbnail", this.props.book.imageLinks.smallThumbnail);
     return (
       <li>
         <div className="book">
@@ -30,7 +29,6 @@ class SingleBook extends Component {
               style={{
                 width: 128,
                 height: 193,
-                // background image with default image if no image is available
                 backgroundImage: `url("${
                     this.props.book.imageLinks
                         ? this.props.book.imageLinks.smallThumbnail
