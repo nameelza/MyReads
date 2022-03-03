@@ -6,21 +6,21 @@ class SingleBook extends Component {
     shelf: "",
   };
 
+  componentDidMount() {
+      this.setState({shelf: this.props.book.shelf});
+  }
+
   handleChange = (event) => {
     this.updateShelf(event.target.value);
     this.setState({ shelf: event.target.value });
-    console.log("changed", this.state.shelf);
   };
 
   updateShelf = (newShelf) => {
-    BooksAPI.update(this.state.book, newShelf);
+    BooksAPI.update(this.props.book, newShelf);
   };
 
   render() {
-    const smallThumbnail = this.props.book.imageLinks.smallThumbnail
-      ? this.props.book.imageLinks.smallThumbnail
-      : "https://images.app.goo.gl/txuJ8FZXrPzFHsi39";
-    console.log("smallThumbnail", smallThumbnail);
+    // console.log("smallThumbnail", this.props.book.imageLinks.smallThumbnail);
     return (
       <li>
         <div className="book">
@@ -30,7 +30,12 @@ class SingleBook extends Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${smallThumbnail})`,
+                // background image with default image if no image is available
+                backgroundImage: `url("${
+                    this.props.book.imageLinks
+                        ? this.props.book.imageLinks.smallThumbnail
+                        : "https://via.placeholder.com/128x193?text=No%20Cover"
+                }")`,
               }}
             />
             <div className="book-shelf-changer">
@@ -50,7 +55,7 @@ class SingleBook extends Component {
           </div>
           <div className="book-title">{this.props.book.title}</div>
           <div className="book-authors">
-            {this.props.book.authors.join(", ")}
+            {this.props.book.authors ? this.props.book.authors.join(", ") : ""}
           </div>
         </div>
       </li>
