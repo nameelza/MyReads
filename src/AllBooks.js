@@ -17,10 +17,9 @@ function getName(str) {
 }
 
 class AllBooks extends Component {
-
   state = {
-    books: {}
-  }
+    books: {},
+  };
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
@@ -32,10 +31,24 @@ class AllBooks extends Component {
           }
           inCategories[book.shelf].push(book);
         }
-      })
-      this.setState({books: inCategories});
+      });
+      this.setState({ books: inCategories });
     });
   }
+
+  updateShelf = (book, newShelf) => {
+    let books = this.state.books;
+    books[book.shelf].splice(books[book.shelf].indexOf(book), 1);
+    book.shelf = newShelf;
+    if (newShelf !== "none") {
+      if (!books[newShelf]) {
+        books[newShelf] = [];
+      }
+      books[newShelf].push(book);
+    }
+    this.setState({ books: books });
+  };
+
   render() {
     return (
       <>
@@ -45,7 +58,10 @@ class AllBooks extends Component {
               <div className="bookshelf" key={shelf}>
                 <h2 className="bookshelf-title">{getName(shelf)}</h2>
                 <div className="bookshelf-books">
-                  <Shelf shelfBooks={this.state.books[shelf]} />
+                  <Shelf
+                    shelfBooks={this.state.books[shelf]}
+                    updateShelf={this.updateShelf}
+                  />
                 </div>
               </div>
             ))}
@@ -59,7 +75,6 @@ class AllBooks extends Component {
       </>
     );
   }
-  
 }
 
 export default AllBooks;
