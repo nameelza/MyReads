@@ -16,17 +16,23 @@ class Search extends Component {
     }
   };
 
-  getBooks = (value) => {
-    BooksAPI.search(value.trim()).then((books) => {
-      if (!books || books.error) {
-        this.setState({ booksResult: [] });
-      } else {
+  getBooks = async (value) => {
+    const response = await BooksAPI.search(value.trim());
+
+    const booksResult = () =>
+      response.map((element) => BooksAPI.get(element.id));
+
+    try {
+      const books = await Promise.all(booksResult());
         this.setState({ booksResult: books });
-      }
-    });
+    } catch (error) {
+      console.log("error", error);
+      this.setState({ booksResult: [] });
+    }
   };
 
   render() {
+    console.log("state", this.state.booksResult);
     return (
       <div className="search-books">
         <div className="search-books-bar">

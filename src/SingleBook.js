@@ -3,29 +3,24 @@ import * as BooksAPI from "./BooksAPI";
 
 class SingleBook extends Component {
   state = {
-    book: {},
-    shelf: ""
+    shelf: "",
   };
-
-  componentDidMount() {
-      BooksAPI.get(this.props.book.id).then((book) => {
-        this.setState({book: book, shelf: book.shelf});
-      });
-  }
 
   handleChange = (event) => {
     this.updateShelf(event.target.value);
-    this.setState({shelf: event.target.value});
-    console.log("changed", this.state.shelf)
-    
-  }
-  
+    this.setState({ shelf: event.target.value });
+    console.log("changed", this.state.shelf);
+  };
+
   updateShelf = (newShelf) => {
     BooksAPI.update(this.state.book, newShelf);
-  }
+  };
 
   render() {
-    console.log("SingleBookComponentShelf", this.state.shelf)
+    const smallThumbnail = this.props.book.imageLinks.smallThumbnail
+      ? this.props.book.imageLinks.smallThumbnail
+      : "https://images.app.goo.gl/txuJ8FZXrPzFHsi39";
+    console.log("smallThumbnail", smallThumbnail);
     return (
       <li>
         <div className="book">
@@ -35,13 +30,14 @@ class SingleBook extends Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${
-                  this.props.book.imageLinks.smallThumbnail
-                })`,
+                backgroundImage: `url(${smallThumbnail})`,
               }}
             />
             <div className="book-shelf-changer">
-              <select value={this.state.shelf} onChange={(event) => this.handleChange(event)}>
+              <select
+                value={this.state.shelf}
+                onChange={(event) => this.handleChange(event)}
+              >
                 <option value="move" disabled>
                   Move to...
                 </option>
