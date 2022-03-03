@@ -7,7 +7,7 @@ class SingleBook extends Component {
   };
 
   componentDidMount() {
-      this.setState({shelf: this.props.book.shelf});
+    this.setState({ shelf: this.props.book.shelf });
   }
 
   handleChange = (event) => {
@@ -17,7 +17,9 @@ class SingleBook extends Component {
 
   updateShelf = (newShelf) => {
     BooksAPI.update(this.props.book, newShelf);
-    this.props.updateShelf(this.props.book, newShelf);
+    if (this.props.updateShelf) {
+      this.props.updateShelf(this.props.book, newShelf);
+    }
   };
 
   render() {
@@ -31,9 +33,9 @@ class SingleBook extends Component {
                 width: 128,
                 height: 193,
                 backgroundImage: `url("${
-                    this.props.book.imageLinks
-                        ? this.props.book.imageLinks.smallThumbnail
-                        : "https://via.placeholder.com/128x193?text=No%20Cover"
+                  this.props.book.imageLinks
+                    ? this.props.book.imageLinks.smallThumbnail
+                    : "https://via.placeholder.com/128x193?text=No%20Cover"
                 }")`,
               }}
             />

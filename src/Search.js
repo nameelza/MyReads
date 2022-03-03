@@ -49,11 +49,7 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results" />
-        {this.state.booksResult.length !== 0 ? (
-          <Shelf shelfBooks={this.state.booksResult} />
-        ) : (
-          <Shelf shelfBooks={[]} />
-        )}
+          <Shelf shelfBooks={this.state.booksResult}/>
       </div>
     );
   }

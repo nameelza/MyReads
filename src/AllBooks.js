@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "./BooksAPI";
 import Shelf from "./Shelf";
 
 function getName(str) {
@@ -17,50 +16,18 @@ function getName(str) {
 }
 
 class AllBooks extends Component {
-  state = {
-    books: {},
-  };
-
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      let inCategories = {};
-      books.forEach((book) => {
-        if (book.shelf !== "none") {
-          if (!inCategories[book.shelf]) {
-            inCategories[book.shelf] = [];
-          }
-          inCategories[book.shelf].push(book);
-        }
-      });
-      this.setState({ books: inCategories });
-    });
-  }
-
-  updateShelf = (book, newShelf) => {
-    let books = this.state.books;
-    books[book.shelf].splice(books[book.shelf].indexOf(book), 1);
-    book.shelf = newShelf;
-    if (newShelf !== "none") {
-      if (!books[newShelf]) {
-        books[newShelf] = [];
-      }
-      books[newShelf].push(book);
-    }
-    this.setState({ books: books });
-  };
-
   render() {
     return (
       <>
         <div className="list-books-content">
           <div>
-            {Object.keys(this.state.books).map((shelf) => (
+            {Object.keys(this.props.books).map((shelf) => (
               <div className="bookshelf" key={shelf}>
                 <h2 className="bookshelf-title">{getName(shelf)}</h2>
                 <div className="bookshelf-books">
                   <Shelf
-                    shelfBooks={this.state.books[shelf]}
-                    updateShelf={this.updateShelf}
+                    shelfBooks={this.props.books[shelf]}
+                    updateShelf={this.props.updateShelf}
                   />
                 </div>
               </div>
