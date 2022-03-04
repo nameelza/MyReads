@@ -13,6 +13,8 @@ class Search extends Component {
     this.setState({ value: value });
     if (value.length > 0) {
       this.getBooks(value);
+    } else {
+      this.setState({ booksResult: [] });
     }
   };
 
