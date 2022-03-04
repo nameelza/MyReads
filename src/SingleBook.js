@@ -17,9 +17,7 @@ class SingleBook extends Component {
 
   updateShelf = (newShelf) => {
     BooksAPI.update(this.props.book, newShelf);
-    if (this.props.updateShelf) {
-      this.props.updateShelf(this.props.book, newShelf);
-    }
+    this.props.updateShelf(this.props.book, newShelf);
   };
 
   render() {

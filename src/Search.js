@@ -49,7 +49,7 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results" />
-          <Shelf shelfBooks={this.state.booksResult}/>
+          <Shelf shelfBooks={this.state.booksResult} updateShelf={this.props.updateShelf}/>
       </div>
     );
   }
