@@ -29,21 +29,13 @@ class BooksApp extends React.Component {
     let books = this.state.books;
     if (book.shelf !== "none") {
       books[book.shelf].splice(books[book.shelf].indexOf(book), 1);
-      book.shelf = newShelf;
-      if (newShelf !== "none") {
-        if (!books[newShelf]) {
-          books[newShelf] = [];
-        }
-        books[newShelf].push(book);
+    }
+    book.shelf = newShelf;
+    if (newShelf !== "none") {
+      if (!books[newShelf]) {
+        books[newShelf] = [];
       }
-    } else {
-      book.shelf = newShelf;
-      if (newShelf !== "none") {
-        if (!books[newShelf]) {
-          books[newShelf] = [];
-        }
-        books[newShelf].push(book);
-      }
+      books[newShelf].push(book);
     }
     this.setState({ books: books });
   };
