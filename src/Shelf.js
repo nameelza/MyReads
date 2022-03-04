@@ -3,11 +3,14 @@ import SingleBook from "./SingleBook";
 
 class Shelf extends Component {
   render() {
-    console.log('Shelf', this.props.shelfBooks)
     return (
       <ol className="books-grid">
         {this.props.shelfBooks.map((book) => (
-          <SingleBook key={book.id} book={book} updateShelf={this.props.updateShelf}/>
+          <SingleBook
+            key={book.id}
+            book={book}
+            updateShelf={this.props.updateShelf}
+          />
         ))}
       </ol>
     );

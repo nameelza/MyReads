@@ -58,7 +58,10 @@ class BooksApp extends React.Component {
                 />
               }
             />
-            <Route path="/search" element={<Search updateShelf={this.updateShelf}/>}/>
+            <Route
+              path="/search"
+              element={<Search updateShelf={this.updateShelf} />}
+            />
           </Routes>
         </div>
       </div>

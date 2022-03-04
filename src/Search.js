@@ -24,15 +24,13 @@ class Search extends Component {
 
     try {
       const books = await Promise.all(booksResult());
-        this.setState({ booksResult: books });
+      this.setState({ booksResult: books });
     } catch (error) {
-      console.log("error", error);
       this.setState({ booksResult: [] });
     }
   };
 
   render() {
-    console.log("state", this.state.booksResult);
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -49,7 +47,10 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results" />
-          <Shelf shelfBooks={this.state.booksResult} updateShelf={this.props.updateShelf}/>
+        <Shelf
+          shelfBooks={this.state.booksResult}
+          updateShelf={this.props.updateShelf}
+        />
       </div>
     );
   }
