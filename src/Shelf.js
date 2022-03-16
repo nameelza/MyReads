@@ -1,20 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import SingleBook from "./SingleBook";
 
-class Shelf extends Component {
-  render() {
-    return (
-      <ol className="books-grid">
-        {this.props.shelfBooks.map((book) => (
-          <SingleBook
-            key={book.id}
-            book={book}
-            updateShelf={this.props.updateShelf}
-          />
-        ))}
-      </ol>
-    );
-  }
-}
+const Shelf = ({shelfBooks, updateShelf}) => {
+  return (
+    <ol className="books-grid">
+      {shelfBooks.map((book) => (
+        <SingleBook
+          key={book.id}
+          book={book}
+          updateShelf={updateShelf}
+        />
+      ))}
+    </ol>
+  );
+};
 
 export default Shelf;

@@ -2,25 +2,15 @@ import React, { Component } from "react";
 import * as BooksAPI from "./BooksAPI";
 
 class SingleBook extends Component {
-  state = {
-    shelf: "",
-  };
 
-  componentDidMount() {
-    this.setState({ shelf: this.props.book.shelf });
-  }
-
-  handleChange = (event) => {
-    this.updateShelf(event.target.value);
-    this.setState({ shelf: event.target.value });
-  };
-
-  updateShelf = (newShelf) => {
+  updateShelf = (e) => {
+    const newShelf = e.target.value;
     BooksAPI.update(this.props.book, newShelf);
     this.props.updateShelf(this.props.book, newShelf);
   };
 
   render() {
+    const { book } = this.props;
     return (
       <li>
         <div className="book">
@@ -31,16 +21,16 @@ class SingleBook extends Component {
                 width: 128,
                 height: 193,
                 backgroundImage: `url("${
-                  this.props.book.imageLinks
-                    ? this.props.book.imageLinks.smallThumbnail
+                  book.imageLinks
+                    ? book.imageLinks.smallThumbnail
                     : "https://via.placeholder.com/128x193?text=No%20Cover"
                 }")`,
               }}
             />
             <div className="book-shelf-changer">
               <select
-                value={this.state.shelf}
-                onChange={(event) => this.handleChange(event)}
+                value={book.shelf}
+                onChange={this.updateShelf}
               >
                 <option value="move" disabled>
                   Move to...
@@ -52,9 +42,9 @@ class SingleBook extends Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{this.props.book.title}</div>
+          <div className="book-title">{book.title}</div>
           <div className="book-authors">
-            {this.props.book.authors ? this.props.book.authors.join(", ") : ""}
+            {book.authors ? book.authors.join(", ") : ""}
           </div>
         </div>
       </li>

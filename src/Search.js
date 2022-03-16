@@ -9,25 +9,27 @@ class Search extends Component {
     booksResult: [],
   };
 
-  updateValue = (value) => {
-    this.setState({ value: value });
-    if (value.length > 0) {
-      this.getBooks(value);
+  updateValue = (e) => {
+    this.setState({ value: e.target.value });
+    if (e.target.value) {
+      this.getBooks(e.target.value);
     } else {
       this.setState({ booksResult: [] });
     }
   };
 
   getBooks = async (value) => {
-    const response = await BooksAPI.search(value.trim());
-
-    const booksResult = () =>
+    const booksResult = ({ response }) =>
       response.map((element) => BooksAPI.get(element.id));
 
     try {
-      const books = await Promise.all(booksResult());
+      const response = await BooksAPI.search(value.trim());
+      console.log(response);
+
+      const books = await Promise.all(booksResult({response}));
+
       this.setState({ booksResult: books });
-    } catch (error) {
+    } catch {
       this.setState({ booksResult: [] });
     }
   };
@@ -44,7 +46,7 @@ class Search extends Component {
               type="text"
               placeholder="Search by title or author"
               value={this.state.value}
-              onChange={(event) => this.updateValue(event.target.value)}
+              onChange={this.updateValue}
             />
           </div>
         </div>

@@ -7,29 +7,32 @@ import Search from "./Search";
 
 class BooksApp extends React.Component {
   state = {
-    books: {},
+    books: { currentlyReading: [], wantToRead: [], read: [] },
   };
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      let inCategories = {};
       books.forEach((book) => {
         if (book.shelf !== "none") {
-          if (!inCategories[book.shelf]) {
-            inCategories[book.shelf] = [];
-          }
-          inCategories[book.shelf].push(book);
+          this.setState((state) => ({
+            books: {
+              ...state.books,
+              [book.shelf]: [...state.books[book.shelf], book],
+            },
+          }));
         }
       });
-      this.setState({ books: inCategories });
     });
   }
 
   updateShelf = (book, newShelf) => {
-    let books = this.state.books;
+    // Make deep copy of books so that we don't mutate the state
+    const books = JSON.parse(JSON.stringify(this.state.books));
     if (book.shelf !== "none") {
-      books[book.shelf].splice(books[book.shelf].indexOf(book), 1);
+      // Remove book from old shelf
+      books[book.shelf] = books[book.shelf].filter((b) => b.id !== book.id);
     }
+
     book.shelf = newShelf;
     if (newShelf !== "none") {
       if (!books[newShelf]) {
